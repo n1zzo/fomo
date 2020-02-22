@@ -14,7 +14,9 @@ import (
 //date_month_re := regexp.MustCompile(`(\d+)\s?-\s?(\d+)\s?(\w+)`)
 //date_date_re := regexp.MustCompile(`(\d+)\s?(\w+)\s?(\d+)\s?(\w+)`"")
 
-func Elfo() {
+func Elfo() (events []Event) {
+    events = make([]Event, 0)
+
     c := colly.NewCollector(colly.AllowedDomains("elfo.org"))
 
     // On the homepage search for events divs
@@ -26,7 +28,6 @@ func Elfo() {
 
     // When visiting an event, scrape off information
     c.OnHTML("div .scheda", func(e *colly.HTMLElement) {
-        fmt.Println("Found an event!")
         // Extract performer info
         performer := e.ChildText("div .autore")
         if performer == "" {
@@ -47,7 +48,7 @@ func Elfo() {
             Time: date_str,
             ImageUrl: e.Request.AbsoluteURL(e.ChildAttr("img", "src")),
         }
-        pretty.Println(event)
+        events = append(events, event)
     })
 
 	// Before making a request print "Visiting ..."
@@ -57,4 +58,6 @@ func Elfo() {
 
     // Start scraping
 	c.Visit("https://elfo.org/")
+
+    return events
 }

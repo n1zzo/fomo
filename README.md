@@ -30,3 +30,8 @@ like Facebook.
 ```
 go get github.com/n1zzo/fomo
 ```
+
+## Credits
+
+Work Sans was created by Wei Huang and is licensed under the SIL Open Font
+License v1.1 (http://scripts.sil.org/OFL).
