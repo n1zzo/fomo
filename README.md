@@ -28,5 +28,5 @@ like Facebook.
 ## Building
 
 ```
-TODO
+go get github.com/n1zzo/fomo
 ```
